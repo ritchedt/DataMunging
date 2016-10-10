@@ -3,7 +3,8 @@ package WeatherTests;
 import static org.junit.Assert.*;
 import java.io.IOException;
 import org.junit.Test;
-import Weather.Weather;
+import WeatherClasses.Weather;
+
 
 public class WeatherTest {
 
