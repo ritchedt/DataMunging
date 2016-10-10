@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class ResourceHelper {
 	
-	String regExWhiteSpace = "(\\s)+";
+	String regExWhiteSpace = "(\\s|\\d+\\.|-)+";
 	
 	
 	public BufferedReader bufferReader(String resourceFile) throws FileNotFoundException{
@@ -24,7 +24,6 @@ public class ResourceHelper {
 		for(int i=0; i<getHeaderValues.length; i++) {
 			headerValue.put(getHeaderValues[i],i);
 	    }
-		
 		return headerValue;
 	}
 	
@@ -36,7 +35,7 @@ public class ResourceHelper {
 		
 		while((readLine = reader.readLine()) != null) {
 			
-			if(!(readLine.contains("mo")) && !(readLine.contains("-"))){
+			if(!(readLine.contains("mo")) && !(readLine.contains("--"))){
 				String[] getLineRowValues = readLine.split(regExWhiteSpace);
 				
 				highVal = Integer.parseInt(getLineRowValues[(int) headerValue.get(columnHigh)].replaceAll("\\*", ""));
@@ -46,7 +45,6 @@ public class ResourceHelper {
 					smallestSpread = (highVal-lowVal);
 			}
 		}
-		
 		return smallestSpread;
 	}
 
