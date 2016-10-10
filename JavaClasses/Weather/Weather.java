@@ -27,10 +27,28 @@ public class Weather {
 			headerValue.put(getHeaderValues[i],i);
 	    }
 		
+		reader.readLine();
 		
+		int maxTemp,minTemp;
+		int smallestTempSpread = Integer.MAX_VALUE;
+		
+		while((readLine = reader.readLine()) != null) {
+			
+			if(readLine.contains("mo"))
+				break;
+			
+			String[] getLineRowValues = readLine.split(regExWhiteSpace);
+			
+			maxTemp = Integer.parseInt(getLineRowValues[(int) headerValue.get("MxT")].replaceAll("\\*", ""));
+			minTemp = Integer.parseInt(getLineRowValues[(int) headerValue.get("MnT")].replaceAll("\\*", ""));
+			
+			if((maxTemp-minTemp) < smallestTempSpread)
+				smallestTempSpread = (maxTemp-minTemp);
+		}
+	
 		reader.close();
 		
-		return 0;
+		return smallestTempSpread;
 	}	
 	
 }
