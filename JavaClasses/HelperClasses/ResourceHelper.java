@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 public class ResourceHelper {
 	
+	String rowTitle;
 	String regExWhiteSpace = "(\\s|\\d+\\.|-)+";
 	
 	
@@ -20,6 +21,7 @@ public class ResourceHelper {
 		
 		HashMap headerValue = new HashMap();
 		String[] getHeaderValues = reader.readLine().split(regExWhiteSpace);
+		rowTitle = getHeaderValues[1];
 		
 		for(int i=0; i<getHeaderValues.length; i++) {
 			headerValue.put(getHeaderValues[i],i);
@@ -31,7 +33,7 @@ public class ResourceHelper {
 		
 		int highVal,lowVal;
 		int smallestSpread = Integer.MAX_VALUE;
-		String readLine;
+		String readLine, rowTitle = "";
 		
 		while((readLine = reader.readLine()) != null) {
 			
@@ -41,10 +43,13 @@ public class ResourceHelper {
 				highVal = Integer.parseInt(getLineRowValues[(int) headerValue.get(columnHigh)].replaceAll("\\*", ""));
 				lowVal = Integer.parseInt(getLineRowValues[(int) headerValue.get(columnLow)].replaceAll("\\*", ""));
 				
-				if((highVal-lowVal) < smallestSpread)
+				if((highVal-lowVal) < smallestSpread){
 					smallestSpread = (highVal-lowVal);
+					rowTitle = getLineRowValues[(int) headerValue.get(this.rowTitle)].replaceAll("\\*", "");
+				}
 			}
 		}
+		System.out.println("Smallest difference was for: " + this.rowTitle + " " + rowTitle + " with " + smallestSpread);
 		return smallestSpread;
 	}
 
